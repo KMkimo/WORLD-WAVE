@@ -121,13 +121,13 @@
     /* ====== RECEIPT ====== */
     .receipt {
       background: #fff; color: #1a1a2e;
-      border-radius: 12px; padding: 26px 30px 18px 30px;
+      border-radius: 12px; padding: 28px 32px 22px 32px;
       font-family: 'Cairo', sans-serif;
       direction: rtl; position: relative; overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 540px;
+      min-height: 580px;
       text-align: right;
     }
     .receipt::before {
@@ -138,22 +138,22 @@
     .receipt-header {
       display: flex; align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px; padding-bottom: 13px;
+      margin-bottom: 20px; padding-bottom: 15px;
       border-bottom: 2px dashed #d0dde8;
     }
     .receipt-logo-area { text-align: right; }
-    .receipt-logo-area img { max-width: 130px; max-height: 75px; object-fit: contain; }
+    .receipt-logo-area img { max-width: 140px; max-height: 80px; object-fit: contain; }
     .receipt-title-box { text-align: center; }
-    .receipt-title-box h2 { font-size: 1.4rem; font-weight: 900; color: #1B3A6B; }
-    .receipt-title-box p { font-size: 0.76rem; color: #5B8DB8; letter-spacing: 1px; }
-    .receipt-num-date { text-align: right; font-size: 0.85rem; color: #555; line-height: 1.8; direction: rtl; }
+    .receipt-title-box h2 { font-size: 1.5rem; font-weight: 900; color: #1B3A6B; }
+    .receipt-title-box p { font-size: 0.78rem; color: #5B8DB8; letter-spacing: 1px; }
+    .receipt-num-date { text-align: right; font-size: 0.88rem; color: #555; line-height: 1.8; direction: rtl; }
     .receipt-num-date span { font-weight: 700; color: #1B3A6B; }
 
-    .receipt-body { margin-bottom: 16px; flex-grow: 1; text-align: right; direction: rtl; }
+    .receipt-body { margin-bottom: 20px; flex-grow: 1; text-align: right; direction: rtl; }
     .receipt-row {
       display: flex; align-items: baseline;
-      gap: 8px; margin-bottom: 12px;
-      font-size: 0.92rem; color: #333;
+      gap: 8px; margin-bottom: 16px;
+      font-size: 0.95rem; color: #333;
       direction: rtl; text-align: right;
     }
     .receipt-row .r-label {
@@ -169,17 +169,17 @@
     .amount-box {
       background: linear-gradient(135deg, #1B3A6B, #5B8DB8);
       color: #fff; border-radius: 10px;
-      padding: 11px 16px;
+      padding: 12px 18px;
       display: flex; justify-content: flex-start; align-items: center;
       gap: 15px;
-      margin: 14px 0;
+      margin: 18px 0;
       direction: rtl; text-align: right;
     }
-    .amount-box .amount-label { font-size: 0.9rem; font-weight: 700; text-align: right; }
-    .amount-box .amount-value { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; text-align: right; }
+    .amount-box .amount-label { font-size: 0.95rem; font-weight: 700; text-align: right; }
+    .amount-box .amount-value { font-size: 1.3rem; font-weight: 900; letter-spacing: 0.5px; text-align: right; }
     .pay-method-badge {
-      display: inline-block; padding: 2px 11px;
-      border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+      display: inline-block; padding: 3px 12px;
+      border-radius: 20px; font-size: 0.78rem; font-weight: 700;
       background: #BFD7ED; color: #1B3A6B;
       border: 1px solid #5B8DB8;
     }
@@ -187,35 +187,40 @@
       background: #f0f5fa;
       border-right: 4px solid #5B8DB8;
       border-radius: 0 8px 8px 0;
-      padding: 9px 13px; font-size: 0.85rem; color: #444;
-      margin-bottom: 14px; min-height: 34px;
+      padding: 10px 14px; font-size: 0.88rem; color: #444;
+      margin-bottom: 16px; min-height: 42px;
       text-align: right; direction: rtl;
     }
     
     /* FOOTER SIGNATURES & DETAILS */
+    .receipt-footer-container {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
     .receipt-footer {
       display: flex; justify-content: space-between; align-items: flex-end;
-      padding-top: 14px; margin-top: auto;
-      font-size: 0.82rem; color: #555;
+      padding-top: 14px;
+      font-size: 0.84rem; color: #555;
       direction: rtl; text-align: right;
     }
     .sig-box {
-      text-align: right; width: 160px;
+      text-align: right; width: 170px;
       background: #f8fafc;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 8px;
       border: 1px solid #e2e8f0;
       direction: rtl;
     }
-    .sig-label { font-size: 0.75rem; color: #5B8DB8; font-weight: 700; text-align: right; }
-    .sig-val { font-weight: 700; color: #1B3A6B; font-size: 0.88rem; margin-top: 4px; min-height: 20px; text-align: right; }
+    .sig-label { font-size: 0.76rem; color: #5B8DB8; font-weight: 700; text-align: right; }
+    .sig-val { font-weight: 700; color: #1B3A6B; font-size: 0.9rem; margin-top: 4px; min-height: 20px; text-align: right; }
 
     .company-bottom-info {
-      margin-top: 14px;
-      padding-top: 10px;
+      padding-top: 12px;
       border-top: 1.5px solid #cbd5e1;
       text-align: center;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: #334155;
       line-height: 1.6;
       direction: rtl;
@@ -238,12 +243,13 @@
     @media print {
       @page {
         margin: 0;
-        size: auto;
+        size: A4 portrait;
       }
       html, body {
         background: #fff !important;
         padding: 0 !important;
         margin: 0 !important;
+        height: 100% !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
@@ -253,6 +259,7 @@
       .container {
         display: block !important;
         width: 100% !important;
+        height: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -261,23 +268,37 @@
         display: block !important;
         gap: 0;
         width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
       }
       .receipt-wrapper {
         background: none !important;
         border: none !important;
-        padding: 12mm 12mm !important;
+        padding: 10mm !important;
         border-radius: 0 !important;
         width: 100% !important;
+        height: 100vh !important;
+        box-sizing: border-box !important;
       }
       .receipt {
         box-shadow: none !important;
         border: 1.5px solid #cbd5e1 !important;
-        border-radius: 12px !important;
-        min-height: auto !important;
+        border-radius: 14px !important;
+        height: calc(100vh - 20mm) !important;
+        min-height: calc(100vh - 20mm) !important;
         width: 100% !important;
-        padding: 24px 28px 16px 28px !important;
+        padding: 35px 38px 24px 38px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+      }
+      .receipt-body {
+        flex-grow: 1 !important;
+      }
+      .receipt-desc {
+        min-height: 80px !important;
       }
     }
   </style>
@@ -396,7 +417,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="receipt-footer-container">
             <div class="receipt-footer">
               <div class="sig-box">
                 <div class="sig-label">اسم الموظف المستلم</div>
