@@ -21,9 +21,14 @@
       margin-bottom: 8px;
     }
     .page-brand img {
-      height: 75px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      background: #fff;
+      padding: 5px;
+      border: 2px solid #BFD7ED;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
     h1.page-title {
       text-align: center;
@@ -142,7 +147,16 @@
       border-bottom: 2px dashed #d0dde8;
     }
     .receipt-logo-area { text-align: right; }
-    .receipt-logo-area img { max-width: 140px; max-height: 80px; object-fit: contain; }
+    .receipt-logo-area img {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #fff;
+      padding: 4px;
+      border: 1.5px solid #BFD7ED;
+      box-shadow: 0 4px 12px rgba(27, 58, 107, 0.15);
+    }
     .receipt-title-box { text-align: center; }
     .receipt-title-box h2 { font-size: 1.5rem; font-weight: 900; color: #1B3A6B; }
     .receipt-title-box p { font-size: 0.78rem; color: #5B8DB8; letter-spacing: 1px; }
@@ -299,6 +313,9 @@
       }
       .receipt-desc {
         min-height: 80px !important;
+      }
+      .receipt-logo-area img {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12) !important;
       }
     }
   </style>
