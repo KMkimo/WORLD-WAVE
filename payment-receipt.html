@@ -147,16 +147,18 @@
     .receipt-body { margin-bottom: 16px; flex-grow: 1; }
     .receipt-row {
       display: flex; align-items: baseline;
-      gap: 7px; margin-bottom: 10px;
-      font-size: 0.9rem; color: #333;
+      gap: 8px; margin-bottom: 12px;
+      font-size: 0.92rem; color: #333;
     }
-    .receipt-row .r-label { white-space: nowrap; font-weight: 700; color: #5B8DB8; min-width: 108px; text-align: right; }
-    .receipt-row .r-dots { flex: 1; border-bottom: 1.5px dotted #bdd0e0; margin-bottom: 3px; }
+    .receipt-row .r-label {
+      white-space: nowrap; font-weight: 700; color: #5B8DB8;
+    }
     .receipt-row .r-value {
       font-weight: 700; color: #1B3A6B;
       text-align: right; direction: rtl;
-      white-space: normal; word-break: break-word;
-      max-width: 70%;
+    }
+    .receipt-row .r-dots {
+      flex: 1; border-bottom: 1.5px dotted #bdd0e0; margin-bottom: 3px;
     }
     .amount-box {
       background: linear-gradient(135deg, #1B3A6B, #5B8DB8);
@@ -189,7 +191,7 @@
       font-size: 0.82rem; color: #555;
     }
     .sig-box {
-      text-align: right; width: 150px;
+      text-align: right; width: 160px;
       background: #f8fafc;
       padding: 8px 12px;
       border-radius: 8px;
@@ -323,23 +325,23 @@
 
             <div class="receipt-body">
               <div class="receipt-row">
-                <span class="r-label">استلمنا من</span>
-                <span class="r-dots"></span>
+                <span class="r-label">استلمنا من:</span>
                 <span class="r-value" id="preview-payer">ـــــــ</span>
+                <span class="r-dots"></span>
               </div>
               <div class="amount-box">
                 <span class="amount-label">💰 إجمالي المبلغ</span>
                 <span class="amount-value" id="preview-amount">0.00 جنيه مصري</span>
               </div>
               <div class="receipt-row">
-                <span class="r-label">المبلغ كتابةً</span>
-                <span class="r-dots"></span>
+                <span class="r-label">المبلغ كتابةً:</span>
                 <span class="r-value" id="preview-amount-text">ـــ</span>
+                <span class="r-dots"></span>
               </div>
               <div class="receipt-row">
-                <span class="r-label">طريقة الدفع</span>
-                <span class="r-dots"></span>
+                <span class="r-label">طريقة الدفع:</span>
                 <span class="r-value"><span class="pay-method-badge" id="preview-method">نقداً</span></span>
+                <span class="r-dots"></span>
               </div>
               <div style="margin-top:11px; font-size:0.83rem; font-weight:700; color:#5B8DB8; margin-bottom:5px;">وذلك عن:</div>
               <div class="receipt-desc" id="preview-desc">ـــ</div>
