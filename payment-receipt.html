@@ -13,6 +13,8 @@
       min-height: 100vh;
       padding: 20px;
       color: #fff;
+      direction: rtl;
+      text-align: right;
     }
     .page-brand {
       text-align: center;
@@ -49,14 +51,16 @@
       border: 1px solid rgba(191,215,237,0.3);
       border-radius: 20px;
       padding: 26px;
+      text-align: right;
     }
     .form-panel h2 {
       font-size: 1.1rem;
       color: #BFD7ED;
       margin-bottom: 18px;
+      text-align: right;
     }
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 0.85rem; color: #BFD7ED; margin-bottom: 5px; font-weight: 600; }
+    .form-group { margin-bottom: 14px; text-align: right; }
+    label { display: block; font-size: 0.85rem; color: #BFD7ED; margin-bottom: 5px; font-weight: 600; text-align: right; }
     input, textarea, select {
       width: 100%; padding: 10px 13px;
       border-radius: 10px;
@@ -75,7 +79,7 @@
       box-shadow: 0 0 0 3px rgba(191,215,237,0.18);
     }
     input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
-    select option { background: #1B3A6B; color: #fff; }
+    select option { background: #1B3A6B; color: #fff; text-align: right; }
     textarea { resize: vertical; min-height: 68px; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
 
@@ -124,6 +128,7 @@
       flex-direction: column;
       justify-content: space-between;
       min-height: 540px;
+      text-align: right;
     }
     .receipt::before {
       content: '';
@@ -141,17 +146,18 @@
     .receipt-title-box { text-align: center; }
     .receipt-title-box h2 { font-size: 1.4rem; font-weight: 900; color: #1B3A6B; }
     .receipt-title-box p { font-size: 0.76rem; color: #5B8DB8; letter-spacing: 1px; }
-    .receipt-num-date { text-align: left; font-size: 0.85rem; color: #555; line-height: 1.8; }
+    .receipt-num-date { text-align: right; font-size: 0.85rem; color: #555; line-height: 1.8; direction: rtl; }
     .receipt-num-date span { font-weight: 700; color: #1B3A6B; }
 
-    .receipt-body { margin-bottom: 16px; flex-grow: 1; }
+    .receipt-body { margin-bottom: 16px; flex-grow: 1; text-align: right; direction: rtl; }
     .receipt-row {
       display: flex; align-items: baseline;
       gap: 8px; margin-bottom: 12px;
       font-size: 0.92rem; color: #333;
+      direction: rtl; text-align: right;
     }
     .receipt-row .r-label {
-      white-space: nowrap; font-weight: 700; color: #5B8DB8;
+      white-space: nowrap; font-weight: 700; color: #5B8DB8; text-align: right;
     }
     .receipt-row .r-value {
       font-weight: 700; color: #1B3A6B;
@@ -164,11 +170,13 @@
       background: linear-gradient(135deg, #1B3A6B, #5B8DB8);
       color: #fff; border-radius: 10px;
       padding: 11px 16px;
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; justify-content: flex-start; align-items: center;
+      gap: 15px;
       margin: 14px 0;
+      direction: rtl; text-align: right;
     }
-    .amount-box .amount-label { font-size: 0.87rem; font-weight: 700; }
-    .amount-box .amount-value { font-size: 1.28rem; font-weight: 900; letter-spacing: 1px; }
+    .amount-box .amount-label { font-size: 0.9rem; font-weight: 700; text-align: right; }
+    .amount-box .amount-value { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; text-align: right; }
     .pay-method-badge {
       display: inline-block; padding: 2px 11px;
       border-radius: 20px; font-size: 0.75rem; font-weight: 700;
@@ -189,6 +197,7 @@
       display: flex; justify-content: space-between; align-items: flex-end;
       padding-top: 14px; margin-top: auto;
       font-size: 0.82rem; color: #555;
+      direction: rtl; text-align: right;
     }
     .sig-box {
       text-align: right; width: 160px;
@@ -198,7 +207,7 @@
       border: 1px solid #e2e8f0;
       direction: rtl;
     }
-    .sig-label { font-size: 0.75rem; color: #5B8DB8; font-weight: 700; }
+    .sig-label { font-size: 0.75rem; color: #5B8DB8; font-weight: 700; text-align: right; }
     .sig-val { font-weight: 700; color: #1B3A6B; font-size: 0.88rem; margin-top: 4px; min-height: 20px; text-align: right; }
 
     .company-bottom-info {
@@ -209,6 +218,7 @@
       font-size: 0.78rem;
       color: #334155;
       line-height: 1.6;
+      direction: rtl;
     }
     .company-bottom-info .info-row {
       display: flex;
@@ -330,7 +340,7 @@
                 <span class="r-dots"></span>
               </div>
               <div class="amount-box">
-                <span class="amount-label">💰 إجمالي المبلغ</span>
+                <span class="amount-label">💰 إجمالي المبلغ:</span>
                 <span class="amount-value" id="preview-amount">0.00 جنيه مصري</span>
               </div>
               <div class="receipt-row">
@@ -343,7 +353,7 @@
                 <span class="r-value"><span class="pay-method-badge" id="preview-method">نقداً</span></span>
                 <span class="r-dots"></span>
               </div>
-              <div style="margin-top:11px; font-size:0.83rem; font-weight:700; color:#5B8DB8; margin-bottom:5px;">وذلك عن:</div>
+              <div style="margin-top:11px; font-size:0.83rem; font-weight:700; color:#5B8DB8; margin-bottom:5px; text-align:right;">وذلك عن:</div>
               <div class="receipt-desc" id="preview-desc">ـــ</div>
             </div>
           </div>
@@ -355,7 +365,7 @@
                 <div class="sig-val" id="preview-receiver">ـــ</div>
               </div>
 
-              <div style="text-align:left; font-size:0.76rem; color:#888;">
+              <div style="text-align:right; font-size:0.76rem; color:#888;">
                 <div>🕐 وقت الإصدار: <span id="preview-time" style="font-weight:700; color:#1B3A6B;"></span></div>
                 <div style="margin-top:3px; color:#94a3b8; font-weight:600;">نسخة أصلية</div>
               </div>
