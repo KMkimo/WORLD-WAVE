@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>World Wave Travel — حجز تذكرة طيران</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #0d1f3c 0%, #1B3A6B 60%, #5B8DB8 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #fff;
+       direction: rtl;
+      text-align: right;
+
+    }
+    a{
+      list-style: none;
+      text-decoration: none;
+      outline: none;
+    }
+    @media print{
+      a{
+        display: none !important;
+      }
+    }
+    .page-brand {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .page-brand img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #fff;
+      padding: 5px;
+      border: 2px solid #BFD7ED;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    h1.page-title {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: 900;
+      margin-bottom: 28px;
+      background: linear-gradient(90deg, #BFD7ED, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+      direction: ltr; /* preview left, form right */
+    }
+    @media (max-width: 800px) { .container { grid-template-columns: 1fr; direction: rtl; } }
+    /* keep inner content RTL */
+    .form-panel, .preview-panel { direction: rtl; }
+
+    /* ====== FORM ====== */
+    .form-panel {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(191,215,237,0.3);
+      border-radius: 20px;
+      padding: 26px;
+      text-align: right;
+    }
+    .form-panel h2 {
+      font-size: 1.1rem;
+      color: #BFD7ED;
+      margin-bottom: 18px;
+      text-align: right;
+    }
+    .form-section-title {
+      font-size: 0.95rem;
+      color: #BFD7ED;
+      font-weight: 700;
+      margin: 16px 0 8px;
+      border-bottom: 1px solid rgba(191,215,237,0.3);
+      padding-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-group { margin-bottom: 10px; text-align: right; }
+    label { display: block; font-size: 0.82rem; color: #BFD7ED; margin-bottom: 4px; font-weight: 600; text-align: right; }
+    input, textarea, select {
+      width: 100%; padding: 9px 12px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(91,141,184,0.45);
+      background: rgba(255,255,255,0.09);
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+      direction: rtl;
+      text-align: right;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #BFD7ED;
+      box-shadow: 0 0 0 3px rgba(191,215,237,0.18);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+    select option { background: #1B3A6B; color: #fff; text-align: right; }
+    textarea { resize: vertical; min-height: 60px; }
+
+    /* ====== DATE & TIME INPUTS — Custom Styled ====== */
+    input[type="date"],
+    input[type="time"] {
+      background: linear-gradient(135deg, rgba(27,58,107,0.7) 0%, rgba(91,141,184,0.35) 100%);
+      border: 1.5px solid rgba(191,215,237,0.55);
+      border-radius: 12px;
+      padding: 10px 14px 10px 40px; /* space for icon on left */
+      color: #e8f2fb;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color-scheme: dark;          /* makes browser popup dark-themed */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      direction: ltr;              /* keep ltr so time/date renders correctly */
+      text-align: center;
+    }
+    input[type="date"]:hover,
+    input[type="time"]:hover {
+      background: linear-gradient(135deg, rgba(27,58,107,0.9) 0%, rgba(91,141,184,0.5) 100%);
+      border-color: #BFD7ED;
+      box-shadow: 0 4px 14px rgba(91,141,184,0.25);
+    }
+    input[type="date"]:focus,
+    input[type="time"]:focus {
+      border-color: #BFD7ED;
+      background: linear-gradient(135deg, rgba(27,58,107,0.95) 0%, rgba(91,141,184,0.6) 100%);
+      box-shadow:
+        0 0 0 3px rgba(191,215,237,0.22),
+        0 4px 18px rgba(27,58,107,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    /* Style the calendar/clock icon */
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) brightness(1.4) sepia(0.4) hue-rotate(185deg);
+      opacity: 0.85;
+      cursor: pointer;
+      border-radius: 6px;
+      padding: 2px;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator:hover,
+    input[type="time"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+      filter: invert(1) brightness(1.8) sepia(0.6) hue-rotate(185deg);
+    }
+    /* Wrapper for date/time rows to add icon label */
+    .dt-wrapper {
+      position: relative;
+    }
+    .dt-wrapper .dt-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+    /* toggle for return section */
+    .toggle-return {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #BFD7ED;
+      font-weight: 700;
+    }
+    .toggle-return input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #5B8DB8;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    .return-section { display: none; }
+    .return-section.visible { display: block; }
+
+    .btn-print {
+      width: 100%; padding: 13px;
+      border-radius: 12px; border: none;
+      background: linear-gradient(135deg, #5B8DB8, #1B3A6B);
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.02rem; font-weight: 900;
+      cursor: pointer; margin-top: 18px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 16px rgba(27,58,107,0.4);
+    }
+    .btn-print:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,58,107,0.5); }
+    .btn-reset {
+      width: 100%; padding: 10px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(191,215,237,0.3);
+      background: transparent;
+      color: rgba(255,255,255,0.55);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.88rem;
+      cursor: pointer; margin-top: 9px;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover { border-color: #BFD7ED; color: #fff; }
+
+    /* ====== PREVIEW ====== */
+    .preview-panel { display: flex; flex-direction: column; gap: 11px; }
+    .preview-label { font-size: 0.87rem; color: rgba(255,255,255,0.55); text-align: center; }
+    .receipt-wrapper {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(91,141,184,0.25);
+      border-radius: 18px; padding: 14px;
+    }
+
+    /* ====== RECEIPT/TICKET ====== */
+    .receipt {
+      background: #fff; color: #1a1a2e;
+      border-radius: 12px; padding: 24px 30px 20px 30px;
+      font-family: 'Cairo', sans-serif;
+      direction: rtl; position: relative; overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 600px;
+      text-align: right;
+    }
+    .receipt::before {
+      content: '';
+      position: absolute; top: 0; right: 0; left: 0; height: 6px;
+      background: linear-gradient(90deg, #1B3A6B, #5B8DB8);
+    }
+    .receipt-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 2px dashed #d0dde8;
+    }
+    .receipt-logo-area { text-align: right; }
+    .receipt-logo-area img {
+      width: 70px; height: 70px;
+      border-radius: 50%; object-fit: contain;
+      background: #fff; padding: 4px;
+      border: 1.5px solid #BFD7ED;
+      box-shadow: 0 4px 12px rgba(27,58,107,0.15);
+    }
+    .receipt-title-box { text-align: center; }
+    .receipt-title-box h2 { font-size: 1.4rem; font-weight: 900; color: #1B3A6B; }
+    .receipt-title-box p { font-size: 0.76rem; color: #5B8DB8; letter-spacing: 1px; }
+    .receipt-date-box { text-align: left; font-size: 0.82rem; color: #555; line-height: 1.8; direction: rtl; }
+    .receipt-date-box span { font-weight: 700; color: #1B3A6B; }
+
+    /* intro line */
+    .intro-line {
+      font-size: 0.92rem;
+      color: #333;
+      margin-bottom: 12px;
+      line-height: 1.8;
+      text-align: right;
+    }
+    .intro-line strong { color: #1B3A6B; }
+
+    /* section header inside ticket */
+    .ticket-section-header {
+      background: linear-gradient(90deg, #1B3A6B, #5B8DB8);
+      color: #fff;
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin: 12px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ticket-section-header .icon { font-size: 1rem; }
+
+    /* flight row */
+    .flight-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding: 6px 0;
+    }
+    .flight-city { text-align: center; }
+    .flight-city .city-name { font-size: 1.2rem; font-weight: 900; color: #1B3A6B; }
+    .flight-city .city-label { font-size: 0.72rem; color: #5B8DB8; }
+    .flight-arrow {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #5B8DB8;
+    }
+
+    /* detail row */
+    .receipt-row {
+      display: flex; align-items: baseline;
+      gap: 8px; margin-bottom: 7px;
+      font-size: 0.88rem; color: #333;
+      direction: rtl; text-align: right;
+    }
+    .receipt-row .r-label {
+      white-space: nowrap; font-weight: 700; color: #5B8DB8;
+    }
+    .receipt-row .r-value {
+      font-weight: 700; color: #1B3A6B;
+      text-align: right; direction: rtl;
+    }
+    .receipt-row .r-dots {
+      flex: 1; border-bottom: 1.5px dotted #bdd0e0; margin-bottom: 3px;
+    }
+
+    .divider-dashed {
+      border: none;
+      border-top: 1.5px dashed #d0dde8;
+      margin: 10px 0;
+    }
+
+    /* cost box */
+    .amount-box {
+      background: linear-gradient(135deg, #1B3A6B, #5B8DB8);
+      color: #fff; border-radius: 10px;
+      padding: 10px 16px;
+      display: flex; justify-content: flex-start; align-items: center;
+      gap: 12px;
+      margin: 12px 0 10px;
+      direction: rtl; text-align: right;
+    }
+    .amount-box .amount-label { font-size: 0.9rem; font-weight: 700; }
+    .amount-box .amount-value { font-size: 1.2rem; font-weight: 900; letter-spacing: 0.5px; }
+
+    /* notes */
+    .notes-box {
+      background: #f0f5fa;
+      border-right: 4px solid #5B8DB8;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      color: #444;
+      margin: 8px 0;
+      line-height: 1.7;
+      text-align: right; direction: rtl;
+    }
+    .notes-box .note-item { margin-bottom: 4px; }
+    .notes-box .note-item::before { content: "* "; color: #5B8DB8; font-weight: 700; }
+
+    .warning-box {
+      background: #fff8e1;
+      border-right: 4px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      color: #555;
+      margin: 8px 0;
+      line-height: 1.7;
+      text-align: right; direction: rtl;
+    }
+
+    /* footer */
+    .receipt-footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-top: 10px;
+      border-top: 1.5px solid #cbd5e1;
+      font-size: 0.84rem; color: #555;
+      direction: rtl; text-align: right;
+      margin-top: auto;
+    }
+    .sig-box {
+      text-align: right; width: 160px;
+      background: #f8fafc;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      direction: rtl;
+    }
+    .sig-label { font-size: 0.72rem; color: #5B8DB8; font-weight: 700; }
+    .sig-val {
+      font-weight: 700; color: #1B3A6B;
+      font-size: 0.85rem; margin-top: 3px;
+      min-height: 18px;
+      text-align: right;
+    }
+
+    .company-bottom-info {
+      padding-top: 8px;
+      border-top: 1.5px solid #cbd5e1;
+      text-align: center;
+      font-size: 0.76rem;
+      color: #334155;
+      line-height: 1.6;
+      direction: rtl;
+    }
+    .company-bottom-info .info-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .company-bottom-info .info-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      color: #1B3A6B;
+    }
+
+    @media print {
+      @page {
+        margin: 0;
+        size: A4 portrait;
+      }
+      html, body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 100% !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .form-panel, .page-title, .page-brand, .preview-label {
+        display: none !important;
+      }
+      .container {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .preview-panel {
+        display: block !important;
+        gap: 0;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .receipt-wrapper {
+        background: none !important;
+        border: none !important;
+        padding: 8mm !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .receipt {
+        box-shadow: none !important;
+        border: 1.5px solid #cbd5e1 !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+        padding: 28px 32px 20px 32px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
+        min-height: unset !important;
+      }
+    }
+  </style>
+</head>
+<body>
+<a  class="btn-print" href="/payment-receipt.html">🧾 إيصال دفع — Payment Receipt</a>
+  <div class="page-brand">
+    <img src="logo.png" alt="World Wave Travel Logo" onerror="this.style.display='none'"/>
+  </div>
+  <h1 class="page-title">🛫 World Wave Travel — حجز تذكرة طيران</h1>
+
+  <div class="container">
+
+    <!-- ===== PREVIEW PANEL (left) ===== -->
+    <div class="preview-panel">
+      <div class="preview-label">معاينة التذكرة — ستظهر عند الطباعة</div>
+      <div class="receipt-wrapper">
+        <div class="receipt">
+
+          <!-- Header -->
+          <div class="receipt-header">
+            <div class="receipt-logo-area">
+              <img src="logo.png" alt="Logo" onerror="this.style.display='none'"/>
+            </div>
+            <div class="receipt-title-box">
+              <h2>World Wave Travel</h2>
+            </div>
+            <div class="receipt-date-box">
+              <div id="pv-date">التاريخ: ——</div>
+              <div id="pv-ticket">رقم الحجز: ——</div>
+            </div>
+          </div>
+
+          <!-- Intro line -->
+          <div class="intro-line">
+            إنه في يوم <strong id="pv-day">——————</strong>
+            الموافق <strong id="pv-dateLabel">——————</strong> ميلادياً،
+            تم حجز تذكرة طيران للسيد / السيدة&nbsp;<strong id="pv-passenger">——————</strong>
+          </div>
+
+          <!-- Airline -->
+          <div class="receipt-row">
+            <span class="r-label">على الخطوط:</span>
+            <span class="r-value" id="pv-airline">——</span>
+            <span class="r-dots"></span>
+
+          </div>
+
+          <!-- DEPARTURE -->
+          <div class="ticket-section-header">
+            <span class="icon">✈️</span> رحلة الذهاب
+          </div>
+
+          <div class="flight-row">
+            <div class="flight-city">
+              <div class="city-name" id="pv-dep-from">——</div>
+              <div class="city-label">المغادرة</div>
+            </div>
+            <div class="flight-arrow">←</div>
+            <div class="flight-city">
+              <div class="city-name" id="pv-dep-to">——</div>
+              <div class="city-label">الوصول</div>
+            </div>
+          </div>
+
+          <div class="receipt-row">
+            <span class="r-label">تاريخ الذهاب:</span>
+            <span class="r-value" id="pv-dep-date">——</span>
+            <span class="r-dots"></span>
+
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">إقلاع الذهاب الساعة:</span>
+            
+            <span class="r-value" id="pv-dep-depart">——</span>
+            <span class="r-dots"></span>
+          </div>
+          <div class="receipt-row" id="pv-dep-transit-row" style="display:none">
+            <span class="r-label">الترانزيت في الذهاب:</span>  
+            <span class="r-value" id="pv-dep-transit">——</span>
+            <span class="r-dots"></span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">وصول الذهاب الساعة:</span>
+            <span class="r-value" id="pv-dep-arrive">——</span>
+            <span class="r-dots"></span>
+          </div>
+          <div class="receipt-row">
+            <span class="r-label">الوزن المسموح:</span>
+            <span class="r-value" id="pv-dep-weight">——</span>
+            <span class="r-dots"></span>
+          </div>
+
+          <!-- RETURN (hidden by default) -->
+          <div id="pv-return-block" style="display:none">
+            <div class="ticket-section-header">
+              <span class="icon">🔄</span> رحلة العودة
+            </div>
+
+            <div class="flight-row">
+              <div class="flight-city">
+                <div class="city-name" id="pv-ret-from">——</div>
+                <div class="city-label">المغادرة</div>
+              </div>
+              <div class="flight-arrow">←</div>
+              <div class="flight-city">
+                <div class="city-name" id="pv-ret-to">——</div>
+                <div class="city-label">الوصول</div>
+              </div>
+            </div>
+
+            <div class="receipt-row">
+              <span class="r-label">تاريخ العودة:</span>
+              <span class="r-value" id="pv-ret-date">——</span>
+              <span class="r-dots"></span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">إقلاع العودة الساعة:</span>
+              <span class="r-value" id="pv-ret-depart">——</span>
+              <span class="r-dots"></span>
+            </div>
+            <div class="receipt-row" id="pv-ret-transit-row" style="display:none">
+              <span class="r-label">الترانزيت في العودة:</span>
+              <span class="r-value" id="pv-ret-transit">——</span>
+              <span class="r-dots"></span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">وصول العودة الساعة:</span>
+              <span class="r-value" id="pv-ret-arrive">——</span>
+              <span class="r-dots"></span>
+            </div>
+            <div class="receipt-row">
+              <span class="r-label">الوزن المسموح:</span>
+              <span class="r-value" id="pv-ret-weight">——</span>
+              <span class="r-dots"></span>
+            </div>
+          </div>
+
+          <!-- Cost -->
+          <div class="amount-box">
+            <div class="amount-label">💰 تكلفة الحجز:</div>
+            <div class="amount-value" id="pv-cost">—— جنيه مصري</div>
+          </div>
+
+          <!-- Reviewer line -->
+          <div class="intro-line" style="font-size:0.82rem; color:#555; margin-bottom:6px;">
+            وتمت المراجعة من موظف/موظفة الشركة &nbsp;<strong id="pv-emp">——————</strong>&nbsp;
+            على العميل الموقر والمذكور أعلاه على التواريخ ومواعيد الرحلة بالتفصيل وتمت الموافقة عليها من طرف العميل.
+          </div>
+          <div class="intro-line" style="font-size:0.79rem; color:#666; margin-bottom:4px;">
+            وبناءاً على تعليمات خطوط وشركات الطيران لا يوجد تعديل أو إلغاء إلا بغرامة يتم تبليغ العميل عند الطلب بقيمتها والتي تحددها شركة الطيران فقط دون أدنى مسؤولية على الشركة ولا على موظف/موظفة الشركة لدينا.
+          </div>
+
+          <!-- Notes -->
+          <div class="notes-box">
+            <div class="note-item">التواجد في المطار قبل الرحلة بـ 3 ساعات.</div>
+            <div class="note-item">عند تأخر العميل عن موعد الرحلة فإن الشركة غير مسؤولة والمسؤولية كاملة على العميل وسوف يُوقَّع عليه كافة الخصومات المقررة من شركات الطيران والتي في أغلب الأحوال تكون سعر التذكرة كاملة.</div>
+          </div>
+
+          <!-- Warning -->
+          <div class="warning-box">
+            <strong>⚠️ تنبيه هام:</strong> جميع التذاكر بداية من جمهورية مصر العربية إلى المملكة العربية السعودية لا تصلح للعمرة / الحج إلا في حالة استيفاء شروط وزارة السياحة المصرية والحصول على الباركود. وفي حالة إصدار التذاكر لغرض العمرة / الحج من دون التقيد بشروط وزارة السياحة تقع المسؤولية على العميل فقط دون أدنى مسؤولية على الشركة.
+          </div>
+
+          <!-- Signatures -->
+          <div class="receipt-footer">
+            <div class="sig-box">
+              <div class="sig-label">إمضاء العميل</div>
+              <div class="sig-val"></div>
+              <div class="sig-label" style="margin-top:6px;">توقيع العميل</div>
+              <div class="sig-val"></div>
+            </div>
+            <div class="sig-box" style="text-align:left;">
+              <div class="sig-label">إمضاء الموظف</div>
+              <div class="sig-val" id="pv-emp-sig"></div>
+              <div class="sig-label" style="margin-top:6px;">توقيع الموظف</div>
+              <div class="sig-val"></div>
+            </div>
+          </div>
+
+          <!-- Bottom info -->
+          <div class="company-bottom-info" style="margin-top:10px;">
+            <div class="info-row">
+              <span class="info-item">🌐 World Wave Travel🛫</span>
+              
+            </div>
+          </div>
+
+        </div><!-- .receipt -->
+      </div><!-- .receipt-wrapper -->
+    </div><!-- .preview-panel -->
+
+    <!-- ===== FORM PANEL (right) ===== -->
+    <div class="form-panel">
+      <h2>📝 بيانات الحجز</h2>
+
+      <!-- تاريخ الإصدار تلقائي -->
+      <div class="form-section-title">📅 تاريخ الإصدار</div>
+      <div class="form-group">
+        <label>اليوم والتاريخ (تلقائي)</label>
+        <div id="autoDateDisplay" style="
+          background: rgba(27,58,107,0.35);
+          border: 1.5px solid rgba(191,215,237,0.5);
+          border-radius: 10px;
+          padding: 9px 14px;
+          font-family: 'Cairo', sans-serif;
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: #BFD7ED;
+          direction: rtl;
+          text-align: right;
+        ">جاري التحميل...</div>
+        <!-- hidden inputs for JS -->
+        <input type="hidden" id="issueDay" />
+        <input type="hidden" id="issueDate" />
+      </div>
+
+      <!-- اسم العميل -->
+      <div class="form-section-title">👤 العميل والخطوط</div>
+      <div class="form-group">
+        <label for="passengerName">اسم المسافر / المسافرة</label>
+        <input type="text" id="passengerName" placeholder="الاسم كاملاً" />
+      </div>
+      <div class="form-group">
+        <label for="airline">الخطوط الجوية</label>
+        <input type="text" id="airline" placeholder="مثال: مصر للطيران" />
+      </div>
+
+      <!-- رحلة الذهاب -->
+      <div class="form-section-title">✈️ رحلة الذهاب</div>
+      <div class="row-2">
+        <div class="form-group">
+          <label for="depFrom">من</label>
+          <input type="text" id="depFrom" placeholder="مدينة المغادرة" />
+        </div>
+        <div class="form-group">
+          <label for="depTo">إلى</label>
+          <input type="text" id="depTo" placeholder="مدينة الوصول" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="depDate">تاريخ الذهاب (ميلادي)</label>
+        <div class="dt-wrapper">
+          <span class="dt-icon">📅</span>
+          <input type="date" id="depDate" />
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label for="depDepart">إقلاع الساعة</label>
+          <div class="dt-wrapper">
+            <span class="dt-icon">🛫</span>
+            <input type="time" id="depDepart" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="depArrive">وصول الساعة</label>
+          <div class="dt-wrapper">
+            <span class="dt-icon">🛬</span>
+            <input type="time" id="depArrive" />
+          </div>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label for="depTransit">ترانزيت في</label>
+          <input type="text" id="depTransit" placeholder="اختياري" />
+        </div>
+        <div class="form-group">
+          <label for="depTransitDur">مدة الترانزيت</label>
+          <input type="text" id="depTransitDur" placeholder="مثال: ساعتان" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="depWeight">الوزن المسموح</label>
+        <input type="text" id="depWeight" placeholder="مثال: 23 كجم" />
+      </div>
+
+      <!-- رحلة العودة -->
+      <label class="toggle-return">
+        <input type="checkbox" id="showReturn" onchange="toggleReturn()" />
+        <span>إضافة تفاصيل رحلة العودة (اختياري)</span>
+      </label>
+
+      <div class="return-section" id="returnSection">
+        <div class="form-section-title">🔄 رحلة العودة</div>
+        <div class="row-2">
+          <div class="form-group">
+            <label for="retFrom">من</label>
+            <input type="text" id="retFrom" placeholder="مدينة المغادرة" />
+          </div>
+          <div class="form-group">
+            <label for="retTo">إلى</label>
+            <input type="text" id="retTo" placeholder="مدينة الوصول" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="retDate">تاريخ العودة (ميلادي)</label>
+          <div class="dt-wrapper">
+            <span class="dt-icon">📅</span>
+            <input type="date" id="retDate" />
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="form-group">
+            <label for="retDepart">إقلاع الساعة</label>
+            <div class="dt-wrapper">
+              <span class="dt-icon">🛫</span>
+              <input type="time" id="retDepart" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="retArrive">وصول الساعة</label>
+            <div class="dt-wrapper">
+              <span class="dt-icon">🛬</span>
+              <input type="time" id="retArrive" />
+            </div>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="form-group">
+            <label for="retTransit">ترانزيت في</label>
+            <input type="text" id="retTransit" placeholder="اختياري" />
+          </div>
+          <div class="form-group">
+            <label for="retTransitDur">مدة الترانزيت</label>
+            <input type="text" id="retTransitDur" placeholder="مثال: ساعتان" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="retWeight">الوزن المسموح</label>
+          <input type="text" id="retWeight" placeholder="مثال: 23 كجم" />
+        </div>
+      </div>
+
+      <!-- التكلفة والموظف -->
+      <div class="form-section-title">💰 التكلفة والتوقيع</div>
+      <div class="form-group">
+        <label for="cost">تكلفة الحجز (جنيه مصري)</label>
+        <input type="text" id="cost" placeholder="مثال: 15000" />
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label for="empName">اسم الموظف / الموظفة</label>
+          <input type="text" id="empName" placeholder="اسم المراجع" />
+        </div>
+        <div class="form-group">
+          <label for="ticketNum">رقم الحجز (اختياري)</label>
+          <input type="text" id="ticketNum" placeholder="رقم الحجز" />
+        </div>
+      </div>
+
+      <button class="btn-print" onclick="window.print()">🖨️ طباعة التذكرة</button>
+      <button class="btn-reset" onclick="resetAll()">↺ إعادة تعيين</button>
+    </div>
+
+  </div><!-- .container -->
+
+  <script>
+    // ======= AUTO DATE =======
+    const ARABIC_DAYS = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    function initAutoDate() {
+      const now = new Date();
+      const dayName = ARABIC_DAYS[now.getDay()];
+      const yyyy = now.getFullYear();
+      const mm   = String(now.getMonth()+1).padStart(2,'0');
+      const dd   = String(now.getDate()).padStart(2,'0');
+      const isoDate = `${yyyy}-${mm}-${dd}`;
+      // Set hidden inputs
+      document.getElementById('issueDay').value  = dayName;
+      document.getElementById('issueDate').value = isoDate;
+      // Show display box
+      document.getElementById('autoDateDisplay').textContent =
+        `${dayName}  —  ${fmtDate(isoDate)}`;
+    }
+
+    // ======= HELPERS =======
+    function fmtDate(val) {
+      if (!val) return '——';
+      const d = new Date(val + 'T00:00:00');
+      return d.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    function fmtTime(val) {
+      if (!val) return '——';
+      const [h, m] = val.split(':');
+      const hh = parseInt(h);
+      const ampm = hh >= 12 ? 'م' : 'ص';
+      const h12 = hh % 12 || 12;
+      return `${h12}:${m} ${ampm}`;
+    }
+    function v(id) { return document.getElementById(id).value; }
+    function set(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val || '——';
+    }
+
+    // ======= PREVIEW =======
+    function updatePreview() {
+      const issueDate = v('issueDate');
+      const issueDay  = v('issueDay');
+      set('pv-date',      issueDate ? fmtDate(issueDate) : '——');
+      set('pv-dateLabel', issueDate ? fmtDate(issueDate) : '——');
+      set('pv-day',       issueDay  || '——');
+      document.getElementById('pv-ticket').textContent =
+        v('ticketNum') ? 'رقم الحجز: ' + v('ticketNum') : 'رقم الحجز: ——';
+
+      set('pv-passenger', v('passengerName'));
+      set('pv-airline',   v('airline'));
+
+      set('pv-dep-from',   v('depFrom'));
+      set('pv-dep-to',     v('depTo'));
+      set('pv-dep-date',   v('depDate')   ? fmtDate(v('depDate'))   + ' ميلادياً فقط' : '——');
+      set('pv-dep-depart', v('depDepart') ? fmtTime(v('depDepart')) : '——');
+      set('pv-dep-arrive', v('depArrive') ? fmtTime(v('depArrive')) : '——');
+      set('pv-dep-weight', v('depWeight'));
+
+      const depTr  = v('depTransit');
+      const depTrD = v('depTransitDur');
+      const depTrRow = document.getElementById('pv-dep-transit-row');
+      if (depTr) {
+        depTrRow.style.display = 'flex';
+        set('pv-dep-transit', depTr + (depTrD ? ' — المدة: ' + depTrD : ''));
+      } else {
+        depTrRow.style.display = 'none';
+      }
+
+      const showRet = document.getElementById('showReturn').checked;
+      document.getElementById('pv-return-block').style.display = showRet ? 'block' : 'none';
+      if (showRet) {
+        set('pv-ret-from',   v('retFrom'));
+        set('pv-ret-to',     v('retTo'));
+        set('pv-ret-date',   v('retDate')   ? fmtDate(v('retDate'))   + ' ميلادياً فقط' : '——');
+        set('pv-ret-depart', v('retDepart') ? fmtTime(v('retDepart')) : '——');
+        set('pv-ret-arrive', v('retArrive') ? fmtTime(v('retArrive')) : '——');
+        set('pv-ret-weight', v('retWeight'));
+        const retTr  = v('retTransit');
+        const retTrD = v('retTransitDur');
+        const retTrRow = document.getElementById('pv-ret-transit-row');
+        if (retTr) {
+          retTrRow.style.display = 'flex';
+          set('pv-ret-transit', retTr + (retTrD ? ' — المدة: ' + retTrD : ''));
+        } else {
+          retTrRow.style.display = 'none';
+        }
+      }
+
+      const cost = v('cost');
+      set('pv-cost', cost ? cost + ' جنيه مصري' : '—— جنيه مصري');
+      set('pv-emp',     v('empName'));
+      set('pv-emp-sig', v('empName'));
+    }
+
+    function toggleReturn() {
+      const sec = document.getElementById('returnSection');
+      document.getElementById('showReturn').checked
+        ? sec.classList.add('visible')
+        : sec.classList.remove('visible');
+      updatePreview();
+    }
+
+    function resetAll() {
+      document.querySelectorAll('input[type!="hidden"], textarea, select').forEach(el => {
+        if (el.type === 'checkbox') el.checked = false;
+        else el.value = '';
+      });
+      document.getElementById('returnSection').classList.remove('visible');
+      updatePreview();
+    }
+
+    // Live update on all visible inputs
+    document.querySelectorAll('input:not([type="hidden"]), textarea, select').forEach(el => {
+      el.addEventListener('input',  updatePreview);
+      el.addEventListener('change', updatePreview);
+    });
+
+    // Init: set date first, then update preview
+    initAutoDate();
+    updatePreview();
+  </script>
+</body>
+</html>
