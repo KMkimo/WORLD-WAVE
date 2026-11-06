@@ -29,6 +29,16 @@
         a{
       text-decoration: none;
     }
+    @media print {
+    header {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        height: auto !important; /* عشان ما يسيبش مساحة فارغة كبيرة فوق */
+    }
+}
+
     @media print{
       a{
         display: none !important;
