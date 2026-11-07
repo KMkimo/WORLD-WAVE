@@ -18,39 +18,122 @@
       
 
     }
-        header{
-      height: 50px;}
-
-    li{
+    /* ====== HEADER / NAVBAR ====== */
+    .main-header {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto 24px auto;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(191, 215, 237, 0.25);
+      border-radius: 18px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      direction: rtl;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .header-brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #fff;
+      padding: 3px;
+      border: 1.5px solid #BFD7ED;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .header-brand .brand-title {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+    .header-brand .brand-subtitle {
+      display: block;
+      font-size: 0.72rem;
+      color: #BFD7ED;
+      font-weight: 600;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       list-style: none;
+    }
+    .nav-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
       text-decoration: none;
-      outline: none;
+      color: #BFD7ED;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(191, 215, 237, 0.2);
+      transition: all 0.25s ease;
     }
-        a{
-      text-decoration: none;
+    .nav-item:hover {
+      color: #ffffff;
+      background: rgba(91, 141, 184, 0.25);
+      border-color: #BFD7ED;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(27, 58, 107, 0.3);
     }
-    @media print {
-    header {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        height: auto !important; /* عشان ما يسيبش مساحة فارغة كبيرة فوق */
+    .nav-item.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, #5B8DB8, #1B3A6B);
+      border-color: #BFD7ED;
+      box-shadow: 0 4px 14px rgba(27, 58, 107, 0.45);
+      cursor: default;
     }
-}
-
-    @media print{
-      a{
-        display: none !important;
+    .nav-item .nav-icon {
+      font-size: 1.1rem;
+    }
+    @media (max-width: 650px) {
+      .main-header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 16px;
+      }
+      .header-nav {
+        width: 100%;
+        justify-content: center;
+      }
+      .nav-item {
+        flex: 1;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 0.85rem;
       }
     }
+
+    li {
+      list-style: none;
+    }
+    a {
+      text-decoration: none;
+    }
+
     .page-brand {
       text-align: center;
       margin-bottom: 8px;
     }
     .page-brand img {
-      width: 150px;
-      height: 150px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: contain;
       background: #fff;
@@ -72,11 +155,18 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px;
-      max-width: 1200px;
+      max-width: 1320px;
+      width: 100%;
       margin: 0 auto;
       direction: ltr; /* preview left, form right */
     }
-    @media (max-width: 800px) { .container { grid-template-columns: 1fr; direction: rtl; } }
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+        direction: rtl;
+        gap: 24px;
+      }
+    }
     /* keep inner content RTL */
     .form-panel, .preview-panel { direction: rtl; }
 
@@ -132,54 +222,65 @@
     /* ====== DATE & TIME INPUTS — Custom Styled ====== */
     input[type="date"],
     input[type="time"] {
-      background: linear-gradient(135deg, rgba(27,58,107,0.7) 0%, rgba(91,141,184,0.35) 100%);
-      border: 1.5px solid rgba(191,215,237,0.55);
+      background: linear-gradient(135deg, rgba(27,58,107,0.75) 0%, rgba(91,141,184,0.35) 100%);
+      border: 1.5px solid rgba(191,215,237,0.5);
       border-radius: 12px;
-      padding: 10px 14px 10px 40px; /* space for icon on left */
-      color: #e8f2fb;
+      padding: 10px 38px 10px 38px;
+      color: #ffffff;
       font-family: 'Cairo', sans-serif;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color-scheme: dark;          /* makes browser popup dark-themed */
+      accent-color: #5B8DB8;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease-in-out;
       position: relative;
       direction: ltr;              /* keep ltr so time/date renders correctly */
       text-align: center;
+      letter-spacing: 0.5px;
     }
     input[type="date"]:hover,
     input[type="time"]:hover {
       background: linear-gradient(135deg, rgba(27,58,107,0.9) 0%, rgba(91,141,184,0.5) 100%);
       border-color: #BFD7ED;
-      box-shadow: 0 4px 14px rgba(91,141,184,0.25);
+      box-shadow: 0 4px 14px rgba(91,141,184,0.3);
     }
     input[type="date"]:focus,
     input[type="time"]:focus {
       border-color: #BFD7ED;
       background: linear-gradient(135deg, rgba(27,58,107,0.95) 0%, rgba(91,141,184,0.6) 100%);
       box-shadow:
-        0 0 0 3px rgba(191,215,237,0.22),
-        0 4px 18px rgba(27,58,107,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        0 0 0 3px rgba(191,215,237,0.25),
+        0 4px 18px rgba(27,58,107,0.45);
+    }
+    /* Style when value is selected - chic glow */
+    input[type="date"].has-value,
+    input[type="time"].has-value {
+      background: linear-gradient(135deg, rgba(27,58,107,0.95) 0%, rgba(91,141,184,0.55) 100%);
+      border-color: #BFD7ED;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(91,141,184,0.35);
     }
     /* Style the calendar/clock icon */
     input[type="date"]::-webkit-calendar-picker-indicator,
     input[type="time"]::-webkit-calendar-picker-indicator {
-      filter: invert(1) brightness(1.4) sepia(0.4) hue-rotate(185deg);
-      opacity: 0.85;
+      filter: invert(1) brightness(1.6) sepia(0.3) hue-rotate(180deg);
+      opacity: 0.9;
       cursor: pointer;
       border-radius: 6px;
-      padding: 2px;
-      transition: opacity 0.2s, filter 0.2s;
+      padding: 3px;
+      transition: opacity 0.2s, filter 0.2s, transform 0.2s;
     }
     input[type="date"]::-webkit-calendar-picker-indicator:hover,
     input[type="time"]::-webkit-calendar-picker-indicator:hover {
       opacity: 1;
-      filter: invert(1) brightness(1.8) sepia(0.6) hue-rotate(185deg);
+      filter: invert(1) brightness(2) sepia(0.6) hue-rotate(185deg);
+      transform: scale(1.1);
     }
     /* Wrapper for date/time rows to add icon label */
     .dt-wrapper {
       position: relative;
+      cursor: pointer;
     }
     .dt-wrapper .dt-icon {
       position: absolute;
@@ -452,10 +553,12 @@
         padding: 0 !important;
         margin: 0 !important;
         height: 100% !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .form-panel, .page-title, .page-brand, .preview-label {
+      header, .main-header, .form-panel, .page-title, .page-brand, .preview-label, a {
         display: none !important;
       }
       .container {
@@ -477,35 +580,141 @@
       .receipt-wrapper {
         background: none !important;
         border: none !important;
-        padding: 8mm !important;
+        padding: 5mm 7mm !important;
         border-radius: 0 !important;
         width: 100% !important;
+        height: 100vh !important;
         box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
       .receipt {
         box-shadow: none !important;
         border: 1.5px solid #cbd5e1 !important;
         border-radius: 14px !important;
         width: 100% !important;
-        padding: 28px 32px 20px 32px !important;
+        height: calc(100vh - 10mm) !important;
+        max-height: calc(100vh - 10mm) !important;
+        padding: 16px 24px 12px 24px !important;
         display: flex !important;
         flex-direction: column !important;
+        justify-content: space-between !important;
         box-sizing: border-box !important;
         min-height: unset !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+      .receipt-header {
+        margin-bottom: 6px !important;
+        padding-bottom: 6px !important;
+      }
+      .receipt-logo-area img {
+        width: 52px !important;
+        height: 52px !important;
+      }
+      .receipt-title-box h2 {
+        font-size: 1.25rem !important;
+      }
+      .receipt-title-box p {
+        font-size: 0.72rem !important;
+      }
+      .receipt-date-box {
+        font-size: 0.78rem !important;
+        line-height: 1.5 !important;
+      }
+      .intro-line {
+        font-size: 0.78rem !important;
+        margin-bottom: 4px !important;
+        line-height: 1.45 !important;
+      }
+      .ticket-section-header {
+        font-size: 0.8rem !important;
+        padding: 3px 8px !important;
+        margin: 5px 0 4px !important;
+      }
+      .flight-row {
+        margin-bottom: 3px !important;
+        padding: 2px 0 !important;
+      }
+      .flight-city .city-name {
+        font-size: 1.05rem !important;
+      }
+      .flight-city .city-label {
+        font-size: 0.68rem !important;
+      }
+      .receipt-row {
+        margin-bottom: 3px !important;
+        font-size: 0.8rem !important;
+      }
+      .amount-box {
+        margin: 5px 0 4px !important;
+        padding: 6px 12px !important;
+      }
+      .amount-box .amount-label {
+        font-size: 0.82rem !important;
+      }
+      .amount-box .amount-value {
+        font-size: 1.05rem !important;
+      }
+      .notes-box {
+        margin: 4px 0 !important;
+        padding: 5px 10px !important;
+        font-size: 0.7rem !important;
+        line-height: 1.4 !important;
+      }
+      .notes-box .note-item {
+        margin-bottom: 2px !important;
+      }
+      .warning-box {
+        margin: 4px 0 !important;
+        padding: 5px 10px !important;
+        font-size: 0.68rem !important;
+        line-height: 1.4 !important;
+      }
+      .receipt-footer {
+        padding-top: 6px !important;
+        margin-top: 2px !important;
+      }
+      .sig-box {
+        width: 140px !important;
+        padding: 4px 8px !important;
+      }
+      .sig-label {
+        font-size: 0.68rem !important;
+      }
+      .sig-val {
+        font-size: 0.8rem !important;
+        min-height: 14px !important;
+      }
+      .company-bottom-info {
+        padding-top: 4px !important;
+        margin-top: 4px !important;
+        font-size: 0.7rem !important;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <a class="btn-print" href="payment-receipt.html">🧾 إيصال دفع — Payment Receipt</a>
-        </li>
-      </ul>
+  <header class="main-header">
+    <div class="header-brand">
+      <img src="logo.png" alt="World Wave Travel" onerror="this.style.display='none'"/>
+      <div class="brand-text">
+        <span class="brand-title">World Wave Travel</span>
+        <span class="brand-subtitle">شركة عالم الموجة للسياحة</span>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-item">
+        <span class="nav-icon">🧾</span>
+        <span>إيصال استلام نقدية</span>
+      </a>
+      <a href="flight-ticket.html" class="nav-item active">
+        <span class="nav-icon">✈️</span>
+        <span>حجز تذكرة طيران</span>
+      </a>
     </nav>
-</header>
+  </header>
   <div class="page-brand">
     <img src="logo.png" alt="World Wave Travel Logo" onerror="this.style.display='none'"/>
   </div>
@@ -962,9 +1171,10 @@
     }
 
     function resetAll() {
-      document.querySelectorAll('input[type!="hidden"], textarea, select').forEach(el => {
+      document.querySelectorAll('input:not([type="hidden"]), textarea, select').forEach(el => {
         if (el.type === 'checkbox') el.checked = false;
         else el.value = '';
+        el.classList.remove('has-value');
       });
       document.getElementById('returnSection').classList.remove('visible');
       updatePreview();
@@ -974,6 +1184,35 @@
     document.querySelectorAll('input:not([type="hidden"]), textarea, select').forEach(el => {
       el.addEventListener('input',  updatePreview);
       el.addEventListener('change', updatePreview);
+    });
+
+    // Make clicking anywhere on date & time inputs open the picker immediately
+    document.querySelectorAll('input[type="date"], input[type="time"]').forEach(input => {
+      input.addEventListener('click', function() {
+        if (typeof this.showPicker === 'function') {
+          try { this.showPicker(); } catch (err) {}
+        }
+      });
+      function updateHasVal() {
+        if (input.value) input.classList.add('has-value');
+        else input.classList.remove('has-value');
+      }
+      input.addEventListener('input', updateHasVal);
+      input.addEventListener('change', updateHasVal);
+      updateHasVal();
+    });
+
+    // Also support clicking the wrapper icon/area
+    document.querySelectorAll('.dt-wrapper').forEach(wrap => {
+      wrap.addEventListener('click', function(e) {
+        const inp = this.querySelector('input[type="date"], input[type="time"]');
+        if (inp && e.target !== inp) {
+          inp.focus();
+          if (typeof inp.showPicker === 'function') {
+            try { inp.showPicker(); } catch (err) {}
+          }
+        }
+      });
     });
 
     // Init: set date first, then update preview
